@@ -3,6 +3,7 @@ package com.hui.example.yizhi.base;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.hui.example.yizhi.utils.ToastUtils;
@@ -14,7 +15,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * @param <P>
  *  实现IBaseView 方法  绑定ButterKnife
  */
-public abstract class BaseMVPCompatFragment<P extends BasePresenter> extends BaseCompatFragment implements IBaseFragment{
+public abstract class BaseMVPCompatFragment<P extends BasePresenter> extends BaseCompatFragment implements BaseFragment {
 
     public  P mPresenter;
 
@@ -23,16 +24,14 @@ public abstract class BaseMVPCompatFragment<P extends BasePresenter> extends Bas
      */
     @Override
     public void initData() {
+        Log.d(TAG, "initData: ");
         super.initData();
-
         mPresenter= (P) initPresenter();
-
         if (mPresenter!=null){
             mPresenter.attachMV(this);
         }
 
     }
-
 
     @Override
     public void showWaitDialog(String waitMsg) {
@@ -118,5 +117,6 @@ public abstract class BaseMVPCompatFragment<P extends BasePresenter> extends Bas
         if (mPresenter!=null){
             mPresenter.detachMV();
         }
+        Log.d(TAG, "onDestroy: ");
     }
 }

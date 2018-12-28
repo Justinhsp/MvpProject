@@ -18,8 +18,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
+
+        def BOOLEAN = "boolean"
+        def TRUE = "true"
+        def FALSE = "false"
+        def IS_SHOW_LOG = "IS_SHOW_LOG"
+
+        debug {
+            minifyEnabled false
+            buildConfigField BOOLEAN, IS_SHOW_LOG, TRUE
+        }
+
         release {
             minifyEnabled false
+            buildConfigField BOOLEAN, IS_SHOW_LOG, FALSE
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

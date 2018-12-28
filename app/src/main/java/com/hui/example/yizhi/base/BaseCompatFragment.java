@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,17 +30,20 @@ public abstract class BaseCompatFragment extends SupportFragment {
 
     @Override
     public void onAttach(Context context) {
-        mActivity= (Activity) context;
+        mActivity= (Activity)context;
         mContext=context;
         super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         if (getLayoutView()!=null){
+            Log.d(TAG, "onCreateView:getLayoutView");
             return getLayoutView();
         }else {
+            Log.d(TAG, "onCreateView:getLayoutId");
             return inflater.inflate(getLayoutId(),container,false);
         }
     }
@@ -47,6 +51,7 @@ public abstract class BaseCompatFragment extends SupportFragment {
 
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState) {
+        Log.d(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         TAG=getClass().getSimpleName();
@@ -64,24 +69,28 @@ public abstract class BaseCompatFragment extends SupportFragment {
         if (unbinder!=null){
             unbinder.unbind();
         }
+        Log.d(TAG, "onDestroyView: ");
     }
 
 
     @Override
     public void onDetach() {
         super.onDetach();
+        Log.d(TAG, "onDetach: ");
     }
 
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 
     @LayoutRes
     public abstract int getLayoutId();
 
     public View getLayoutView() {
+        Log.d(TAG, "getLayoutView: ");
         return null;
     }
 
@@ -89,6 +98,7 @@ public abstract class BaseCompatFragment extends SupportFragment {
      * 得到Activity传进来的值
      */
     public void getBundle(Bundle bundle) {
+        Log.d(TAG, "getBundle: ");
     }
 
     /**
@@ -100,6 +110,7 @@ public abstract class BaseCompatFragment extends SupportFragment {
      * 在监听器之前把数据准备好
      */
     public void initData() {
+        Log.d(TAG, "initData: ");
         mWaitPorgressDialog=new WaitPorgressDialog(mActivity);
         mContext=AppUtils.getContext();
         mvpApp= (MvpApp) mActivity.getApplication();

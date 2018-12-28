@@ -21,6 +21,8 @@ import com.hui.example.yizhi.widget.WaitPorgressDialog;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public abstract class BaseCompatActivity extends SupportActivity {
 
@@ -42,12 +44,27 @@ public abstract class BaseCompatActivity extends SupportActivity {
         init(savedInstanceState);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().finishActivity(this);
+    }
+
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        //fragment切换使用默认Vertical动画
+        return new DefaultVerticalAnimator();
+    }
+
+
     /**
      * 初始化
      * @param savedInstanceState
      */
     private void init(Bundle savedInstanceState) {
-        setTheme(ThemeUtils.themeArr[SpUtils.getThemeIndex(this)][SpUtils.getNightModel(this)?1:0]);
+        setTheme(ThemeUtils.themeArr[SpUtils.getThemeIndex(this)][
+                SpUtils.getNightModel(this) ? 1 : 0]);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         StatusBarUtils.setTransparent(this);

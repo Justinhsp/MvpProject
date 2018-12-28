@@ -1,22 +1,22 @@
 package com.hui.example.yizhi.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.view.MenuItem;
 
 import com.hui.example.yizhi.R;
 import com.hui.example.yizhi.base.BaseCompatActivity;
-import com.hui.example.yizhi.helper.BottomNavigationViewHelper;
 import com.hui.example.yizhi.ui.fragment.book.BookFragment;
 import com.hui.example.yizhi.ui.fragment.gank.GankFragment;
 import com.hui.example.yizhi.ui.fragment.home.HomeFragment;
 import com.hui.example.yizhi.ui.fragment.movie.MovieFragment;
 import com.hui.example.yizhi.ui.fragment.personal.PersonalFragment;
 import com.hui.example.yizhi.utils.ToastUtils;
-
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class MainActivity extends BaseCompatActivity {
+public class MainActivity extends BaseCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.bottom_bar)
     BottomNavigationView bottomBar;
 
@@ -59,9 +59,31 @@ public class MainActivity extends BaseCompatActivity {
             mFragments[FOURTH].findFragment(BookFragment.class);
             mFragments[FIFTH].findFragment(PersonalFragment.class);
         }
-
         //禁止三个Item以上的动画切换效果  Api28 后已修复
         //BottomNavigationViewHelper.disableShiftMode(bottomBar);
+        bottomBar.setOnNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_home:
+                showHideFragment(mFragments[FIRST]);
+                break;
+            case R.id.menu_item_gank_io:
+                showHideFragment(mFragments[SECOND]);
+                break;
+            case R.id.menu_item_movie:
+                showHideFragment(mFragments[THIRD]);
+                break;
+            case R.id.menu_item_book:
+                showHideFragment(mFragments[FOURTH]);
+                break;
+            case R.id.menu_item_personal:
+                showHideFragment(mFragments[FIFTH]);
+                break;
+        }
+        return true;
     }
 
 
@@ -81,4 +103,6 @@ public class MainActivity extends BaseCompatActivity {
             }
         }
     }
+
+
 }

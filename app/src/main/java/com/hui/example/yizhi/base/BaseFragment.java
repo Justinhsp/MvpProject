@@ -9,7 +9,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 /**
  * BaseFragment接口
  */
-public interface IBaseFragment extends IBaseView {
+public interface BaseFragment extends BaseView {
     /**
      * 出栈到目标fragment
      *

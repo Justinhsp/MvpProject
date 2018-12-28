@@ -21,7 +21,7 @@ public class PersonalFragment extends BaseMVPCompatFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_personal;
     }
 
     @Override

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 /**
  * FragMent BaseView 接口
  */
-public interface IBaseView {
+public interface BaseView {
 
     /**
      * 初始化Presenter
